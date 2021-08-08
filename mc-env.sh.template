@@ -1,0 +1,18 @@
+# Environment Variables
+# NB: Use double-quotes if spaces are included in the name
+# Name of the OCI SDK Profile
+PROFILE_NAME=
+# Name of the Compartment where the resources are. Assuming the same compartment for the subnet, compute instance and bastion instance to be created.
+COMPARTMENT_NAME=
+# Name of the subnet where the compute instance exists and also the subnet where the bastion session to be created
+SUBNET_NAME=
+# Name of the compute instance to create the bastion session
+RESOURCE_NAME=
+# Name of the Bastion Instance to be created
+BASTION_NAME=
+
+# NB: Include full path to the SSH keys
+# Path to the private ssh key
+SSH_KEY_PRIV=
+# Path to the public ssh key
+SSH_KEY_PUB=
