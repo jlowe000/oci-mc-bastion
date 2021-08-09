@@ -19,6 +19,8 @@ Environment Variable Configuration (in mc-env.sh). Copy the mc-env.sh.template t
 - SSH_KEY_PUB - Path to the public ssh key
 - JQ_PATH - (For Powershell only) Path to the jq executable (assume jq-win64.exe used)
 
+Allowed CIDR List to connect to the Bastion Instance (in cidr-list.json). Currently defaults to 0.0.0.0/0.
+
 Notes:
 - Use double-quotes if spaces are included in the name
 - Include full path to the SSH keys
