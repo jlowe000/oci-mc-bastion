@@ -4,7 +4,7 @@
 . ./mc-env.sh
 
 # Create SSH Keys if required
-if [ -r ${SSSH_KEY_PRIV} ] && [ -r ${SSH_KEY_PUB} ] 
+if [ -r ${SSH_KEY_PRIV} ] && [ -r ${SSH_KEY_PUB} ] 
 then
   echo "Found SSH Keys"
 else
@@ -24,8 +24,8 @@ echo ${RESOURCE_OCID}
 LIST_BASTION=`oci --profile ${PROFILE_NAME} bastion bastion list --all --compartment-id ${COMPARTMENT_OCID} --name ${BASTION_NAME} --bastion-lifecycle-state ACTIVE`
 if [ "" = "${LIST_BASTION}" ]; then
   echo "EMPTY"
-  echo 'oci --profile ${PROFILE_NAME} bastion bastion create --bastion-type standard --compartment-id ${COMPARTMENT_OCID} --target-subnet-id ${SUBNET_OCID} --name ${BASTION_NAME} --client-cidr-list "[\"0.0.0.0/0\"]"'
-  BASTION_WR=`oci --profile ${PROFILE_NAME} bastion bastion create --bastion-type standard --compartment-id ${COMPARTMENT_OCID} --target-subnet-id ${SUBNET_OCID} --name ${BASTION_NAME} --client-cidr-list '["0.0.0.0/0"]'`
+  echo 'oci --profile ${PROFILE_NAME} bastion bastion create --bastion-type standard --compartment-id ${COMPARTMENT_OCID} --target-subnet-id ${SUBNET_OCID} --name ${BASTION_NAME} --client-cidr-list file://./cidr-list.json'
+  BASTION_WR=`oci --profile ${PROFILE_NAME} bastion bastion create --bastion-type standard --compartment-id ${COMPARTMENT_OCID} --target-subnet-id ${SUBNET_OCID} --name ${BASTION_NAME} --client-cidr-list file://./cidr-list.json`
   echo ${BASTION_WR}
   until [ "" != "${LIST_BASTION}" ]
   do

@@ -1,0 +1,12 @@
+# Environment Variables
+$Env:PROFILE_NAME="<profile name>"
+$Env:COMPARTMENT_NAME="<compartment name>"
+$Env:SUBNET_NAME="<subnet name>"
+$Env:RESOURCE_NAME="<minecraft server name>"
+$Env:BASTION_NAME="<bastion name>"
+
+$Env:SSH_KEY_PRIV="$Env:HOMEDRIVE$Env:HOMEPATH\.ssh\<SSH Private Key>"
+$Env:SSH_KEY_PUB="$Env:HOMEDRIVE$Env:HOMEPATH\.ssh\<SSH Public Key>"
+
+$Env:JQ_PATH="<JQ PATH>"
+$Env:PATH += ";$Env:JQ_PATH"
