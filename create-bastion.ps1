@@ -2,7 +2,7 @@
 & .\mc-env.ps1
 
 # Create SSH Keys
-if ((Test-Path -Path $file -PathType Leaf) -and (Test-Path -Path $file -PathType Leaf)) {
+if ((Test-Path -Path $Env:SSH_KEY_PRIV -PathType Leaf) -and (Test-Path -Path $Env:SSH_KEY_PUB -PathType Leaf)) {
   echo "Found SSH Keys"
 } else {
   echo "Requires new SSH Keys"
