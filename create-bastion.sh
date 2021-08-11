@@ -69,6 +69,6 @@ PRIVATE_IP_ADDRESS=`echo ${GET_SESSION} | jq -r ".data.\"target-resource-details
 echo ${PRIVATE_IP_ADDRESS}
 
 # Create SSH Tunnel for Minecraft
-SSH_CMD=`echo ${GET_SESSION} | jq -r ".data.\"ssh-metadata\".command" | sed -E 's/<privateKey>/${SSH_KEY_PRIV}/g' | sed -E 's/-p 22/-L 25565:${PRIVATE_IP_ADDRESS}.0.0.67:25565 -N/g'`
+SSH_CMD=`echo ${GET_SESSION} | jq -r ".data.\"ssh-metadata\".command" | sed -E 's/<privateKey>/${SSH_KEY_PRIV}/g' | sed -E 's/-p 22/-L 25565:${PRIVATE_IP_ADDRESS}:25565 -N/g'`
 echo ${SSH_CMD}
 eval ${SSH_CMD}
