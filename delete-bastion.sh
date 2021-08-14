@@ -3,6 +3,19 @@
 # Include Environment Variables
 . ./mc-env.sh
 
+# Get the options
+while getopts ":hb:c:" option; do
+  case $option in
+    h) # display Help
+       echo "-b <bastion_name> -c <compartment_name>"
+       exit;;
+    b) # Set Bastion (by arg)
+       BASTION_NAME=$OPTARG;;
+    c) # Set Compartment (by arg)
+       COMPARTMENT_NAME=$OPTARG;;
+  esac
+done
+
 # Get OCIDs for key components
 COMPARTMENT_OCID=`oci --profile ${PROFILE_NAME} iam compartment list --all --name "${COMPARTMENT_NAME}" | jq -r ".data[0].id"`
 echo ${COMPARTMENT_OCID}

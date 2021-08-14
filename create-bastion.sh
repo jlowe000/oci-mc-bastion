@@ -3,6 +3,30 @@
 # Include Environment Variables
 . ./mc-env.sh
 
+RESOURCE_PORT="22"
+SESSION_NAME="mysession"
+
+# Get the options
+while getopts ":hb:c:s:r:p:i:" option; do
+  case $option in
+    h) # display Help
+       echo "-b <bastion_name> -c <compartment_name> -s <subnet_name> -r <resource_name> -p <port> -i <session_name>"
+       exit;;
+    b) # Set Bastion (by arg)
+       BASTION_NAME=$OPTARG;;
+    c) # Set Compartment (by arg)
+       COMPARTMENT_NAME=$OPTARG;;
+    s) # Set Subnet (by arg)
+       SUBNET_NAME=$OPTARG;;
+    r) # Set Resource (by arg)
+       RESOURCE_NAME=$OPTARG;;
+    p) # Set Resource Port (by arg)
+       RESOURCE_PORT=$OPTARG;;
+    i) # Set Session Name ie (ID) (by arg)
+       SESSION_NAME=$OPTARG;;
+  esac
+done
+
 # Create SSH Keys if required
 if [ -r ${SSH_KEY_PRIV} ] && [ -r ${SSH_KEY_PUB} ] 
 then
@@ -69,6 +93,11 @@ PRIVATE_IP_ADDRESS=`echo ${GET_SESSION} | jq -r ".data.\"target-resource-details
 echo ${PRIVATE_IP_ADDRESS}
 
 # Create SSH Tunnel for Minecraft
-SSH_CMD=`echo ${GET_SESSION} | jq -r ".data.\"ssh-metadata\".command" | sed -E 's/<privateKey>/${SSH_KEY_PRIV}/g' | sed -E 's/-p 22/-L 25565:${PRIVATE_IP_ADDRESS}:25565 -N/g'`
+SSH_CMD=`echo ${GET_SESSION} | jq -r ".data.\"ssh-metadata\".command" | sed -E 's/<privateKey>/${SSH_KEY_PRIV}/g'`
+
+if [ "22" != "${RESOURCE_PORT}" ]; then
+  SSH_CMD=`echo ${SSH_CMD} | sed -E 's/-p 22/-L ${RESOURCE_PORT}:${PRIVATE_IP_ADDRESS}:${RESOURCE_PORT} -N/g'`
+fi
+
 echo ${SSH_CMD}
 eval ${SSH_CMD}
